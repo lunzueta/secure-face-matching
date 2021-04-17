@@ -5,7 +5,7 @@ sys.path.insert(0, ".")
 import seal_helper
 
 
-precision = 125  # precision of 1/125 = 0.004
+precision = float(125)  # precision of 1/125 = 0.004
 poly_modulus_degree = 4096
 
 parms = EncryptionParameters(scheme_type.bfv)
@@ -46,19 +46,38 @@ print("Saving Relin Keys: " + name)
 name = data_path + 'keys/galios_key_bfv_1_to_1_py.bin'
 gal_key.save(name)
 print("Saving Galios Keys: " + name)
-slot_count = batch_encoder.slot_count()
+slot_count = int(batch_encoder.slot_count())
 
 f = open(data_path + "gallery-1-to-1.bin", "rb")
 num_gallery = int(np.fromfile(f, dtype=int, count=1))
 dim_gallery = int(np.fromfile(f, dtype=int, count=1))
 
+pod_matrix = np.array([], dtype=np.int64)
 for i in range(num_gallery):
     # Load gallery from file
-    gallery = np.fromfile(f, dtype=float, count=dim_gallery)
+    gallery = np.fromfile(f, dtype=np.float32, count=dim_gallery)
 
     # Push gallery into a vector of size poly_modulus_degree
     # Actually we should be able to squeeze two gallery instances into one
     # vector
     # This depends on implementation, can get 2x speed up and 2x less storage
+    for j in range(int(slot_count / 2)):
+        if 0 <= j and j < dim_gallery:
+            a = np.int64(round(precision * gallery[j]))
+            np.append(pod_matrix, a)
+        else:
+            np.append(pod_matrix, np.int64(0))
 
+    # Encrypt entire vector of gallery
+    encrypted_matrix = Ciphertext()
+    plain_matrix = batch_encoder.encode(pod_matrix)
+    print("Encrypting Gallery: " + str(i))
+    encrypted_matrix = encryptor.encrypt(plain_matrix)
+
+    # Save encrypted feature vector to disk.
+    name = data_path + 'gallery/encrypted_gallery_bfv_1_to_1_' + str(i) + \
+        '_py.bin'
+    encrypted_matrix.save(name)
+
+print("Done")
 f.close()
