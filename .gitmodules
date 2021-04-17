@@ -1,3 +1,6 @@
 [submodule "3rdparty/SEAL"]
 	path = 3rdparty/SEAL
 	url = https://github.com/microsoft/SEAL.git
+[submodule "3rdparty/SEAL-Python"]
+	path = 3rdparty/SEAL-Python
+	url = https://github.com/Huelse/SEAL-Python.git
