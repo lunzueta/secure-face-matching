@@ -44,7 +44,7 @@ int main() {
     EncryptionParameters parms(scheme_type::bfv);
     parms.set_poly_modulus_degree(poly_modulus_degree);
     parms.set_coeff_modulus(CoeffModulus::BFVDefault(poly_modulus_degree));
-    // seems like 16 also works
+    // Seems like 16 also works
     parms.set_plain_modulus(PlainModulus::Batching(poly_modulus_degree, 20));
 
     cout << "\nTotal memory allocated by global memory pool: "
@@ -73,7 +73,7 @@ int main() {
     string name;
     ofstream ofile;
 
-    // save the keys (public, secret, relin and galios)
+    // Save the keys (public, secret, relin and galios)
     string data_path = "C:/LUI/code/secure-face-matching/data/";
     name = data_path + "keys/public_key_bfv_1_to_1.bin";
     cout << "Saving Public Key: " << name << endl;
@@ -110,7 +110,7 @@ int main() {
 
     ifstream ifile;
     int num_gallery, dim_gallery;
-    ifile.open (data_path + "gallery-1-to-1.bin", ios::in|ios::binary);
+    ifile.open(data_path + "gallery-1-to-1.bin", ios::in|ios::binary);
 
     ifile.read((char *)&num_gallery, sizeof(int));
     ifile.read((char *)&dim_gallery, sizeof(int));
@@ -122,14 +122,14 @@ int main() {
         // Load gallery from file
         ifile.read((char *)gallery, dim_gallery * sizeof(float));
 
-        // push gallery into a vector of size poly_modulus_degree
-        // actually we should be able to squeeze two gallery instances into one
+        // Push gallery into a vector of size poly_modulus_degree
+        // Actually we should be able to squeeze two gallery instances into one
         // vector
-        // this depends on implementation, can get 2x speed up and 2x less
+        // This depends on implementation, can get 2x speed up and 2x less
         // storage
-        for (int j=0;j<slot_count / 2;j++) {
+        for (int j = 0; j < slot_count / 2; j++) {
             if ((0 <= j) && (j < dim_gallery)) {
-                int a = (int64_t) roundf(precision*gallery[j]);
+                int a = (int64_t) roundf(precision * gallery[j]);
                 pod_matrix.push_back(a);
             } else {
                 pod_matrix.push_back((int64_t) 0);
