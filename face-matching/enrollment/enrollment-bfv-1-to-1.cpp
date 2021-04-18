@@ -118,7 +118,7 @@ int main() {
     Plaintext plain_matrix;
     float* gallery = new float[dim_gallery];
     vector<int64_t> pod_matrix;
-    for (int i=0; i < num_gallery; i++) {
+    for (int i = 0; i < num_gallery; ++i) {
         // Load gallery from file
         ifile.read((char *)gallery, dim_gallery * sizeof(float));
 
@@ -127,9 +127,9 @@ int main() {
         // vector
         // This depends on implementation, can get 2x speed up and 2x less
         // storage
-        for (int j = 0; j < slot_count / 2; j++) {
+        for (int j = 0; j < slot_count / 2; ++j) {
             if ((0 <= j) && (j < dim_gallery)) {
-                int a = (int64_t) roundf(precision * gallery[j]);
+                int a = (int64_t)roundf(precision * gallery[j]);
                 pod_matrix.push_back(a);
             } else {
                 pod_matrix.push_back((int64_t) 0);

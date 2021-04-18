@@ -44,7 +44,7 @@ int main() {
     EncryptionParameters parms(scheme_type::bfv);
     parms.set_poly_modulus_degree(poly_modulus_degree);
     parms.set_coeff_modulus(CoeffModulus::BFVDefault(poly_modulus_degree));
-    // seems like 16 also works
+    // Seems like 16 also works
     parms.set_plain_modulus(PlainModulus::Batching(poly_modulus_degree, 20));
 
     cout << "\nTotal memory allocated by global memory pool: "
@@ -75,7 +75,7 @@ int main() {
     string name;
     ofstream ofile;
 
-    // save the keys (public, secret, relin and galios)
+    // Save the keys (public, secret, relin and galois)
     string data_path = "C:/LUI/code/secure-face-matching/data/";
     name = data_path + "keys/public_key_bfv_1_to_n.bin";
     cout << "Saving Public Key: " << name << endl;
@@ -121,14 +121,14 @@ int main() {
     Plaintext plain_matrix;
     float* gallery = new float[num_gallery];
     vector<int64_t> pod_matrix;
-    for (int i=0; i < dim_gallery; i++) {
+    for (int i = 0; i < dim_gallery; ++i) {
         // Load gallery from file
         ifile.read((char *)&gallery, num_gallery * sizeof(float));
 
-        // push dim i of all gallery into a vector of size poly_modulus_degree
-        // assuming that gallery size is smaller than poly_modulus_degree
+        // Push dim i of all gallery into a vector of size poly_modulus_degree
+        // Assuming that gallery size is smaller than poly_modulus_degree
         // else need to chunk the gallery into blocks
-        for (int j=0;j<slot_count;j++) {
+        for (int j = 0; j < slot_count; ++j) {
             if ((0 <= j) && (j < num_gallery)) {
                 int a = (int64_t) roundf(precision*gallery[j]);
                 pod_matrix.push_back(a);
