@@ -73,9 +73,9 @@ int main() {
     string name;
     ofstream ofile;
 
-    // Save the keys (public, secret, relin and galios)
-    string data_path = "C:/LUI/code/secure-face-matching/data/";
-    name = data_path + "keys/public_key_bfv_1_to_1.bin";
+    // Save the keys (public, secret, relin and galois)
+    string data_path = "../../data/";
+    name = data_path + "public_key_bfv_1_to_1.bin";
     cout << "Saving Public Key: " << name << endl;
     ofile.open(name.c_str(), ios::out|ios::binary);
     public_key.save(stream);
@@ -83,7 +83,7 @@ int main() {
     ofile.close();
     stream.str(std::string());
 
-    name = data_path + "keys/secret_key_bfv_1_to_1.bin";
+    name = data_path + "secret_key_bfv_1_to_1.bin";
     cout << "Saving Secret Key: " << name << endl;
     ofile.open(name.c_str(), ios::out|ios::binary);
     secret_key.save(stream);
@@ -91,7 +91,7 @@ int main() {
     ofile.close();
     stream.str(std::string());
 
-    name = data_path + "keys/relin_key_bfv_1_to_1.bin";
+    name = data_path + "relin_key_bfv_1_to_1.bin";
     cout << "Saving Relin Keys: " <<  name << endl;
     ofile.open(name.c_str(), ios::out|ios::binary);
     relin_key.save(stream);
@@ -99,8 +99,8 @@ int main() {
     ofile.close();
     stream.str(std::string());
 
-    name = data_path + "keys/galios_key_bfv_1_to_1.bin";
-    cout << "Saving Galios Keys: " <<  name << endl;
+    name = data_path + "galois_key_bfv_1_to_1.bin";
+    cout << "Saving Galois Keys: " <<  name << endl;
     ofile.open(name.c_str(), ios::out|ios::binary);
     gal_key.save(stream);
     ofile << stream.str();
@@ -143,7 +143,7 @@ int main() {
         encryptor.encrypt(plain_matrix, encrypted_matrix);
 
         // Save encrypted feature vector to disk.
-        name = data_path + "gallery/encrypted_gallery_bfv_1_to_1_" +
+        name = data_path + "encrypted_gallery_bfv_1_to_1_" +
             std::to_string(i) + ".bin";
         ofile.open(name.c_str(), ios::out|ios::binary);
         encrypted_matrix.save(stream);

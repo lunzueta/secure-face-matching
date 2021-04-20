@@ -36,20 +36,20 @@ encryptor = Encryptor(context, public_key)
 decryptor = Decryptor(context, secret_key)
 
 # Save the keys (public, secret, relin and galois)
-data_path = 'C:/LUI/code/secure-face-matching/data/'
-name = data_path + 'keys/public_key_bfv_1_to_1_py.bin'
+data_path = './data/'
+name = data_path + 'public_key_bfv_1_to_1_py.bin'
 public_key.save(name)
 print("Saving Public Key: " + name)
 
-name = data_path + 'keys/secret_key_bfv_1_to_1_py.bin'
+name = data_path + 'secret_key_bfv_1_to_1_py.bin'
 secret_key.save(name)
 print("Saving Secret Key: " + name)
 
-name = data_path + 'keys/relin_key_bfv_1_to_1_py.bin'
+name = data_path + 'relin_key_bfv_1_to_1_py.bin'
 relin_key.save(name)
 print("Saving Relin Keys: " + name)
 
-name = data_path + 'keys/galois_key_bfv_1_to_1_py.bin'
+name = data_path + 'galois_key_bfv_1_to_1_py.bin'
 gal_key.save(name)
 print("Saving Galois Keys: " + name)
 slot_count = int(batch_encoder.slot_count())
@@ -80,7 +80,7 @@ for i in range(num_gallery):
     encrypted_matrix = encryptor.encrypt(plain_matrix)
 
     # Save encrypted feature vector to disk.
-    name = data_path + 'gallery/encrypted_gallery_bfv_1_to_1_' + str(i) + \
+    name = data_path + 'encrypted_gallery_bfv_1_to_1_' + str(i) + \
         '_py.bin'
     encrypted_matrix.save(name)
 

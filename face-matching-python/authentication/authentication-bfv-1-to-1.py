@@ -24,24 +24,24 @@ print("Set encryption parameters and print")
 seal_helper.print_parameters(context)
 
 # Load back the keys (public, secret, relin and galois)
-data_path = 'C:/LUI/code/secure-face-matching/data/'
+data_path = './data/'
 public_key = PublicKey()
-name = data_path + 'keys/public_key_bfv_1_to_1.bin'
+name = data_path + 'public_key_bfv_1_to_1.bin'
 print("Loading Public Key: " + name)
 public_key.load(context, name)
 
 secret_key = SecretKey()
-name = data_path + 'keys/secret_key_bfv_1_to_1.bin'
+name = data_path + 'secret_key_bfv_1_to_1.bin'
 print("Loading Secret Key: " + name)
 secret_key.load(context, name)
 
 gal_key = GaloisKeys()
-name = data_path + 'keys/galois_key_bfv_1_to_1.bin'
+name = data_path + 'galois_key_bfv_1_to_1.bin'
 print("Loading Galois Keys: " + name)
 gal_key.load(context, name)
 
 relin_key = RelinKeys()
-name = data_path + 'keys/relin_key_bfv_1_to_1.bin'
+name = data_path + 'relin_key_bfv_1_to_1.bin'
 print("Loading Relin Keys: " + name)
 relin_key.load(context, name)
 
@@ -56,7 +56,7 @@ row_size = int(slot_count / 2)
 num_gallery = 16
 encrypted_gallery = []
 for i in range(num_gallery):
-    name = data_path + "gallery/encrypted_gallery_bfv_1_to_1_" + str(i) + ".bin"
+    name = data_path + "encrypted_gallery_bfv_1_to_1_" + str(i) + ".bin"
     encrypted_matrix = Ciphertext()
     encrypted_matrix.load(context, name)
     encrypted_gallery.append(encrypted_matrix)
